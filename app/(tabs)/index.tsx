@@ -1,5 +1,5 @@
 import { Image } from 'expo-image';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
@@ -9,33 +9,35 @@ export default function HomeScreen() {
   return (
     <ThemedView style={styles.mainContainer}>
       
-      {/* 1. Imagen arriba (Pibble) */}
-      <ThemedView style={styles.imageContainer}>
-        <Image
-          source={require('@/assets/images/pibble.jpeg')} 
-          style={styles.mainImage}
-          contentFit="cover"
-        />
-      </ThemedView>
+      {/* 1. Imagen de Fondo */}
+      <Image
+        source={require('@/assets/images/pibble.jpeg')} 
+        style={StyleSheet.absoluteFillObject} // Ocupa todo el espacio disponible
+        contentFit="cover"
+      />
 
-      {/* 2. Texto en el medio */}
-      <ThemedView style={styles.textContainer}>
-        <ThemedText type="title" style={styles.textCenter}>
-          Demo App
-        </ThemedText>
-      </ThemedView>
+      {/* Capa de superposición (Overlay) para que el texto sea legible */}
+      <View style={styles.overlay}>
+        
+        {/* 2. Contenido superior/medio */}
+        <View style={styles.content}>
+          <ThemedText type="title" style={styles.titleText}>
+            Demo App
+          </ThemedText>
+        </View>
 
-      {/* 3. Botón ingresar abajo */}
-      <ThemedView style={styles.buttonContainer}>
-        <Link href="/explore" asChild>
-          <TouchableOpacity style={styles.button}>
-            <ThemedText type="defaultSemiBold" style={styles.buttonText}>
-              INGRESAR
-            </ThemedText>
-          </TouchableOpacity>
-        </Link>
-      </ThemedView>
+        {/* 3. Botón abajo */}
+        <View style={styles.buttonWrapper}>
+          <Link href="/explore" asChild>
+            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+              <ThemedText type="defaultSemiBold" style={styles.buttonText}>
+                INGRESAR
+              </ThemedText>
+            </TouchableOpacity>
+          </Link>
+        </View>
 
+      </View>
     </ThemedView>
   );
 }
@@ -43,48 +45,46 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    alignItems: 'center',
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)', // Oscurece un poco la imagen para que resalte el texto
     justifyContent: 'space-between',
-    paddingVertical: 60, 
-  },
-  imageContainer: {
-    marginTop: 20,
-    width: '100%',
+    paddingVertical: 80,
     alignItems: 'center',
   },
-  mainImage: {
-    width: 250,
-    height: 250,
-    borderRadius: 20, // Bordes redondeados para que se vea mejor el perrito
+  content: {
+    flex: 1,
+    justifyContent: 'center',
   },
-  textContainer: {
-    flex: 1, 
-    justifyContent: 'center', 
-    alignItems: 'center',
-  },
-  textCenter: {
+  titleText: {
+    color: '#FFFFFF',
+    fontSize: 42,
+    fontWeight: 'bold',
     textAlign: 'center',
+    textShadowColor: 'rgba(0, 0, 0, 0.75)', // Sombra para legibilidad
+    textShadowOffset: { width: -1, height: 1 },
+    textShadowRadius: 10,
   },
-  buttonContainer: {
+  buttonWrapper: {
     width: '100%',
     alignItems: 'center',
-    marginBottom: 20,
   },
   button: {
     backgroundColor: '#0a7ea4',
-    paddingVertical: 16,
-    paddingHorizontal: 80,
-    borderRadius: 12,
-    elevation: 5,
+    paddingVertical: 18,
+    paddingHorizontal: 60,
+    borderRadius: 30, // Botón más redondeado para un look moderno
+    elevation: 8,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4.65,
+    shadowOpacity: 0.4,
+    shadowRadius: 5,
   },
   buttonText: {
     color: '#FFFFFF',
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    letterSpacing: 1.2,
+    letterSpacing: 1.5,
   },
 });
