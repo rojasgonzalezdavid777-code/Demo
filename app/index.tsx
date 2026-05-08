@@ -1,6 +1,6 @@
+import { useRouter } from 'expo-router'; // 1. Importamos el router
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { useRouter } from 'expo-router'; // 1. Importamos el router
 import { globalStyles } from './styles/styles';
 
 export default function App() {
@@ -10,9 +10,9 @@ export default function App() {
     <View style={globalStyles.container}>
       
       <View style={globalStyles.header}>
-        <Text style={globalStyles.title}>Hola!!!</Text>
-        <Text style={globalStyles.subtitle}>David Rojas</Text>
-        <Text style={globalStyles.date}>24/04/2026</Text>
+        <Text style={globalStyles.title}>Bienvenido!!!</Text>
+        <Text style={globalStyles.subtitle}>Da click para ingresar</Text>
+        
 
         <Image 
           source={require('../assets/images/rutasbog.png')} 
